@@ -15,7 +15,19 @@ test('GET /todos returns the seeded list', async () => {
   const { port } = server.address();
   const res = await fetch(`http://localhost:${port}/todos`);
   assert.equal(res.status, 200);
-  assert.ok(Array.isArray(await res.json()));
+  const body = await res.json();
+  assert.ok(Array.isArray(body.todos));
+  server.close();
+});
+
+test('GET /todos includes completedCount', async () => {
+  const server = makeApp().listen(0);
+  const { port } = server.address();
+  const res = await fetch(`http://localhost:${port}/todos`);
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(typeof body.completedCount, 'number');
+  assert.equal(body.completedCount, body.todos.filter((t) => t.done).length);
   server.close();
 });
 

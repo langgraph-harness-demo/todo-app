@@ -4,7 +4,8 @@ import { listTodos, addTodo, setDone, removeTodo } from '../db.js';
 export const todosRouter = Router();
 
 todosRouter.get('/', (req, res) => {
-  res.json(listTodos());
+  const todos = listTodos();
+  res.json({ todos, completedCount: todos.filter((t) => t.done).length });
 });
 
 todosRouter.post('/', (req, res) => {
