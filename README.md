@@ -14,3 +14,7 @@ npm start   # listens on :4000
 ```bash
 npm test
 ```
+
+## Where are todos stored?
+
+Todos are kept in an in-memory JavaScript array (`src/db.js`). They do **not** survive a server restart — every time the server starts, it begins with the three seed todos defined in `src/db.js`.
