@@ -30,3 +30,16 @@ test('POST /todos requires a title and dueDate', async () => {
   assert.equal(res.status, 400);
   server.close();
 });
+
+test('POST /todos rejects titles longer than 200 characters', async () => {
+  const server = makeApp().listen(0);
+  const { port } = server.address();
+  const longTitle = 'a'.repeat(201);
+  const res = await fetch(`http://localhost:${port}/todos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: longTitle, dueDate: '2026-01-01' }),
+  });
+  assert.equal(res.status, 400);
+  server.close();
+});

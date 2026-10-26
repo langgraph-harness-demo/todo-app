@@ -12,6 +12,9 @@ todosRouter.post('/', (req, res) => {
   if (!title || !dueDate) {
     return res.status(400).json({ error: 'title and dueDate are required' });
   }
+  if (title.length > 200) {
+    return res.status(400).json({ error: 'title must be 200 characters or fewer' });
+  }
   res.status(201).json(addTodo(title, dueDate));
 });
 
