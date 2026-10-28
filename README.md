@@ -14,3 +14,7 @@ npm start   # listens on :4000
 ```bash
 npm test
 ```
+
+## Running locally
+
+Run `npm install` then `npm start`.
