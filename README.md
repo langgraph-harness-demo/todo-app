@@ -17,4 +17,4 @@ npm test
 
 ## Running locally
 
-Run `npm install` then `npm start`.
+Run `npm install` then `npm start`. Run `npm test` to run the tests.
