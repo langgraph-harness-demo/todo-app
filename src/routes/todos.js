@@ -9,8 +9,9 @@ todosRouter.get('/', (req, res) => {
 
 todosRouter.get('/search', (req, res) => {
   const q = req.query.q;
+  if (typeof q !== 'string' || !q) return res.status(400).json({ error: 'q is required' });
   const matches = listTodos().filter((t) => t.title.includes(q));
-  res.json(matches[0]);
+  res.json(matches.length ? matches[0] : []);
 });
 
 todosRouter.post('/', (req, res) => {
