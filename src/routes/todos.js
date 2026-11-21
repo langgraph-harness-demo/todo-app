@@ -29,7 +29,7 @@ todosRouter.patch('/:id/done', (req, res) => {
 });
 
 todosRouter.delete('/:id', (req, res) => {
-  const removed = removeTodo(Number(req.params.id));
+  const removed = removeTodo(req.params.id);
   if (!removed) return res.status(404).json({ error: 'not found' });
   res.status(204).end();
 });
