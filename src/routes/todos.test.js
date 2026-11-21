@@ -40,8 +40,8 @@ test('PATCH /todos/:id/done rejects non-boolean done values', async () => {
     { done: 1 },
     { done: 0 },
     { done: null },
-    { done: undefined },
     { done: {} },
+    { done: NaN },
   ];
   for (const body of cases) {
     const res = await fetch(`http://localhost:${port}/todos/1/done`, {

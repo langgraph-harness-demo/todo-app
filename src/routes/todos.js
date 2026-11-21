@@ -12,7 +12,7 @@ todosRouter.post('/', (req, res) => {
   res.status(201).json(addTodo(title, dueDate));
 });
 todosRouter.patch('/:id/done', (req, res) => {
-  const done = req.body.done;
+  const done = req.body?.done;
   if (typeof done !== 'boolean') {
     return res.status(400).json({ error: 'done must be a boolean' });
   }
