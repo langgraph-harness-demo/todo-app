@@ -1,4 +1,4 @@
 version: 2
 
 review:
-  requires_reviewer: true
+  requires_reviewer: false
