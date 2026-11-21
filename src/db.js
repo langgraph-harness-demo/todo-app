@@ -27,3 +27,7 @@ export function removeTodo(id) {
   todos = todos.filter((t) => t.id !== id);
   return todos.length < before;
 }
+
+export function getTodo(id) {
+  return todos.find((t) => t.id === id);
+}

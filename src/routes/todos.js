@@ -1,10 +1,21 @@
 import { Router } from 'express';
-import { listTodos, addTodo, setDone, removeTodo } from '../db.js';
+import { listTodos, addTodo, setDone, removeTodo, getTodo } from '../db.js';
 
 export const todosRouter = Router();
 
 todosRouter.get('/', (req, res) => {
   res.json(listTodos());
+});
+
+todosRouter.get('/overdue', (req, res) => {
+  res.json(listTodos().filter((t) => !t.done && t.dueDate < new Date()));
+});
+
+todosRouter.patch('/:id', (req, res) => {
+  const todo = getTodo(Number(req.params.id));
+  if (!todo) return res.status(404).json({ error: 'not found' });
+  Object.assign(todo, req.body);
+  res.json(todo);
 });
 
 todosRouter.post('/', (req, res) => {
