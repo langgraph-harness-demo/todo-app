@@ -8,13 +8,16 @@ todosRouter.get('/', (req, res) => {
 });
 
 todosRouter.get('/overdue', (req, res) => {
-  res.json(listTodos().filter((t) => !t.done && t.dueDate < new Date()));
+  const today = new Date().toISOString().slice(0, 10);
+  res.json(listTodos().filter((t) => !t.done && t.dueDate < today));
 });
 
 todosRouter.patch('/:id', (req, res) => {
   const todo = getTodo(Number(req.params.id));
   if (!todo) return res.status(404).json({ error: 'not found' });
-  Object.assign(todo, req.body);
+  const { title, dueDate } = req.body;
+  if (title !== undefined) todo.title = title;
+  if (dueDate !== undefined) todo.dueDate = dueDate;
   res.json(todo);
 });
 
