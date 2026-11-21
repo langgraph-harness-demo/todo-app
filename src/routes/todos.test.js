@@ -30,3 +30,15 @@ test('POST /todos requires a title and dueDate', async () => {
   assert.equal(res.status, 400);
   server.close();
 });
+
+test('POST /todos rejects empty or whitespace-only title', async () => {
+  const server = makeApp().listen(0);
+  const { port } = server.address();
+  const res = await fetch(`http://localhost:${port}/todos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: '   ', dueDate: '2026-12-01' }),
+  });
+  assert.equal(res.status, 400);
+  server.close();
+});

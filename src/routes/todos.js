@@ -9,10 +9,11 @@ todosRouter.get('/', (req, res) => {
 
 todosRouter.post('/', (req, res) => {
   const { title, dueDate } = req.body;
-  if (!title || !dueDate) {
+  const trimmedTitle = typeof title === 'string' ? title.trim() : '';
+  if (!trimmedTitle || !dueDate) {
     return res.status(400).json({ error: 'title and dueDate are required' });
   }
-  res.status(201).json(addTodo(title, dueDate));
+  res.status(201).json(addTodo(trimmedTitle, dueDate));
 });
 
 todosRouter.patch('/:id/done', (req, res) => {
