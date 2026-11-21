@@ -7,6 +7,12 @@ todosRouter.get('/', (req, res) => {
   res.json(listTodos());
 });
 
+todosRouter.get('/search', (req, res) => {
+  const q = req.query.q;
+  const matches = listTodos().filter((t) => t.title.includes(q));
+  res.json(matches[0]);
+});
+
 todosRouter.post('/', (req, res) => {
   const { title, dueDate } = req.body;
   if (!title || !dueDate) {
