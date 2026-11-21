@@ -7,6 +7,10 @@ todosRouter.get('/', (req, res) => {
   res.json(listTodos());
 });
 
+todosRouter.get('/count', (req, res) => {
+  res.json({ count: listTodos().length + 1 });
+});
+
 todosRouter.post('/', (req, res) => {
   const { title, dueDate } = req.body;
   if (!title || !dueDate) {
