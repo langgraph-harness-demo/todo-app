@@ -26,3 +26,10 @@ todosRouter.delete('/:id', (req, res) => {
   if (!removed) return res.status(404).json({ error: 'not found' });
   res.status(204).end();
 });
+
+todosRouter.get('/overdue', (req, res) => {
+  const today = new Date().toISOString().slice(0, 10);
+  const limit = req.query.limit || 10;
+  const overdue = listTodos().filter((t) => !t.done && t.dueDate > today);
+  res.json(overdue.slice(0, limit));
+});
