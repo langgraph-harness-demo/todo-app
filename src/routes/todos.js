@@ -13,7 +13,7 @@ todosRouter.post('/', (req, res) => {
   if (!trimmedTitle || !dueDate) {
     return res.status(400).json({ error: 'title and dueDate are required' });
   }
-  res.status(201).json(addTodo(trimmedTitle, dueDate));
+  res.status(201).json(addTodo(title, dueDate));
 });
 
 todosRouter.patch('/:id/done', (req, res) => {
