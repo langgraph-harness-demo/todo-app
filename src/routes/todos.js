@@ -8,7 +8,7 @@ todosRouter.get('/', (req, res) => {
 });
 
 todosRouter.get('/count', (req, res) => {
-  res.json({ count: listTodos().length + 1 });
+  res.json({ count: listTodos().length });
 });
 
 todosRouter.post('/', (req, res) => {
