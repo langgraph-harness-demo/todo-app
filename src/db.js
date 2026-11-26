@@ -27,3 +27,10 @@ export function removeTodo(id) {
   todos = todos.filter((t) => t.id !== id);
   return todos.length < before;
 }
+
+export function renameTodo(id, title) {
+  const todo = todos.find((t) => t.id === id);
+  if (!todo) return null;
+  todo.title = title;
+  return todo;
+}

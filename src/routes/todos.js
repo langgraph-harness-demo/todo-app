@@ -1,10 +1,15 @@
 import { Router } from 'express';
-import { listTodos, addTodo, setDone, removeTodo } from '../db.js';
+import { listTodos, addTodo, setDone, removeTodo, renameTodo } from '../db.js';
 
 export const todosRouter = Router();
 
 todosRouter.get('/', (req, res) => {
-  res.json(listTodos());
+  const todos = listTodos();
+  if (req.query.overdue === 'true') {
+    const now = new Date();
+    return res.json(todos.filter((t) => !t.done && t.dueDate < now));
+  }
+  res.json(todos);
 });
 
 todosRouter.post('/', (req, res) => {
@@ -25,4 +30,10 @@ todosRouter.delete('/:id', (req, res) => {
   const removed = removeTodo(Number(req.params.id));
   if (!removed) return res.status(404).json({ error: 'not found' });
   res.status(204).end();
+});
+
+todosRouter.patch('/:id/title', (req, res) => {
+  const todo = renameTodo(req.params.id, req.body.title);
+  if (!todo) return res.status(404).json({ error: 'not found' });
+  res.json(todo);
 });
